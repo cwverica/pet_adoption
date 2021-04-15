@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %} Pretty Pets! {% endblock %}
+
+{% block content %}
+
+{% if pets %}
+<div class="row">
+    {% for pet in pets %}
+    <div class="col-4-md">
+        <div class="card" style="width: 18rem;">
+            {% if pet.photo_url %}
+            <img src="{{pet.photo_url}}" class="img-fluid card-img-top" alt="A picture of a {{pet.species}}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{pet.name}}</h5>
+                {% if pet.available %}<h6 class="card-subtitle mb-2 text-muted"><em>Available</em></h6>{% endif %}
+                <p class="card-text">This is a {% if pet.age %}{{pet.age}} year old {% endif %}{{pet.species}}{% if
+                    pet.available %} that is looking for a
+                    home{% endif %}!
+                </p>
+                <a href="/{{pet.id}}" class="btn btn-primary">Check me out!</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<h1>Sorry, no pets yet!</h1>
+{% endif %}
+
+<br><br>
+<a href="/add" class="btn btn-secondary">Add Pet</a>
+
+{% endblock %}
